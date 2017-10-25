@@ -5,6 +5,8 @@ var md5lib = require('js-md5');
 
 var gpio = require("pi-gpio");
 
+var kii = require('kii-cloud-sdk').create();
+
 var SENSOR_LIST = null;
 
 var SENSOR_POLLING_INTERVAL = null;
@@ -50,7 +52,7 @@ function loadConfig() {
     VENDOR_THING_ID = _config.vendorThingId;
     THING_PASSWORD = _config.thingPassword;
 
-    Kii.initializeWithSite(_config.kiiAppID, _config.kiiAppKey, _config.kiiAppURL);
+    kii.Kii.initializeWithSite(_config.kiiAppID, _config.kiiAppKey, _config.kiiAppURL);
 
     return true;
 }
@@ -128,39 +130,42 @@ function uploadLogEntitiesWithRetry(jsonLog, success, failure, retryCount) {
 
     var md5 = md5lib(JSON.stringify(jsonLog));
 
-    var arg = {
-        "vendorThingId": VENDOR_THING_ID,
-        "thingPassword": THING_PASSWORD,
-        "entities": [{ "transactionId": md5, "data": jsonLog }],
-    };
-
-    Kii.serverCodeEntry("uploadLogEntities").execute(arg).then(
-        function(params) {
-            var entry = params[0];
-            var argument = params[1];
-            var execResult = params[2];
-            var returnedValue = execResult.getReturnedValue();
-            var response = returnedValue["returnedValue"];
-
-            _log("Received response: " + JSON.stringify(response));
-
-            if (response.status == "Success" || response.response == "Success" || (!response.status && !response.response)) {
-                success(response);
-            } else {
-                failure(response);
-            }
-        },
-        function(error) {
-            _log("Request error " + error);
-            if(retryCount <= 0) {
-                _log("Failed to upload log entity " + JSON.stringify(jsonLog));
-                failure(response);
-            } else {
-                // retry
-                uploadLogEntitiesWithRetry(jsonLog, success, failure, --retryCount);
-            }
-        }
-    );
+success();
+return;
+// TODO comment out for testing
+    // var arg = {
+    //     "vendorThingId": VENDOR_THING_ID,
+    //     "thingPassword": THING_PASSWORD,
+    //     "entities": [{ "transactionId": md5, "data": jsonLog }],
+    // };
+    //
+    // kii.Kii.serverCodeEntry("uploadLogEntities").execute(arg).then(
+    //     function(params) {
+    //         var entry = params[0];
+    //         var argument = params[1];
+    //         var execResult = params[2];
+    //         var returnedValue = execResult.getReturnedValue();
+    //         var response = returnedValue["returnedValue"];
+    //
+    //         _log("Received response: " + JSON.stringify(response));
+    //
+    //         if (response.status == "Success" || response.response == "Success" || (!response.status && !response.response)) {
+    //             success(response);
+    //         } else {
+    //             failure(response);
+    //         }
+    //     },
+    //     function(error) {
+    //         _log("Request error " + error);
+    //         if(retryCount <= 0) {
+    //             _log("Failed to upload log entity " + JSON.stringify(jsonLog));
+    //             failure(response);
+    //         } else {
+    //             // retry
+    //             uploadLogEntitiesWithRetry(jsonLog, success, failure, --retryCount);
+    //         }
+    //     }
+    // );
 }
 
 function readSensorPreviousStatus(sensor) {
