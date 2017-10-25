@@ -1,0 +1,19 @@
+{
+	"kiiAppID": "c6aoxgdt1xtx",
+	"kiiAppURL": "https://api-staging-cn3.internal.kii.com/api",
+	"kiiAppKey": "c833f0ab332042b4a38551829ae0a81a",
+	"kiiVendorThingID": "NEC0000001",
+	"kiiThingPassword": "123ABC",
+
+    "sensorList" : [
+        { "name": "Coffee", "gpio": 20, "code": 1011 },
+        { "name": "Milk", "gpio": 5, "code": 1012 },
+        { "name": "Chocolate", "gpio": 6, "code": 1013 },
+        { "name": "Thai Tea", "gpio": 13, "code": 1014 },
+        { "name": "Green Tea", "gpio": 19, "code": 1015 },
+        { "name": "Seasonal", "gpio": 26, "code": 1016 }
+    ],
+
+    "sensorPollingInterval" : 3000
+
+}
