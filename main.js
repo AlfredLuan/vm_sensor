@@ -61,6 +61,20 @@ function handleSensor(sensor) {
 
     _log("handle sensor " + JSON.stringify(sensor));
 
+    // close gpio in advance, just in case that it's not properly released in previous use
+    gpio.close(sensor.gpio, function(err) {
+        // in case of any err, still try to open gpio
+        if(err) {
+            _log("error during close gpio " + JSON.stringify(sensor));
+            _log(err);
+        }
+
+        openGpio(sensor);
+    });
+}
+
+function openGpio(sensor) {
+
     // open gpio for the sensor
     gpio.open(sensor.gpio, "input", function(err) {
 
