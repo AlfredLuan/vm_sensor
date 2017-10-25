@@ -6,12 +6,12 @@
 	"kiiThingPassword": "123ABC",
 
     "sensorList" : [
-        { "name": "Coffee", "gpio": 20, "code": 1011 },
-        { "name": "Milk", "gpio": 5, "code": 1012 },
-        { "name": "Chocolate", "gpio": 6, "code": 1013 },
-        { "name": "Thai Tea", "gpio": 13, "code": 1014 },
-        { "name": "Green Tea", "gpio": 19, "code": 1015 },
-        { "name": "Seasonal", "gpio": 26, "code": 1016 }
+        { "name": "Coffee", "gpio": "38", "code": 1011 },
+        { "name": "Milk", "gpio": "29", "code": 1012 },
+        { "name": "Chocolate", "gpio": "31", "code": 1013 },
+        { "name": "Thai Tea", "gpio": "33", "code": 1014 },
+        { "name": "Green Tea", "gpio": "35", "code": 1015 },
+        { "name": "Seasonal", "gpio": "37", "code": 1016 }
     ],
 
     "sensorPollingInterval" : 3000
