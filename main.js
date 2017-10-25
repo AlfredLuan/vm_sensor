@@ -65,8 +65,8 @@ function handleSensor(sensor) {
     gpio.open(sensor.gpio, "input", function(err) {
 
         if(err) {
-            _error("error during open gpio " + JSON.stringify(sensor));
-            _error(err);
+            _log("error during open gpio " + JSON.stringify(sensor));
+            _log(err);
             return;
         }
 
@@ -74,8 +74,8 @@ function handleSensor(sensor) {
         setInterval(function() {
             gpio.read(sensor.gpio, function(err, value) {
                 if(err) {
-                    _error("error during read gpio " + JSON.stringify(sensor));
-                    _error(err);
+                    _log("error during read gpio " + JSON.stringify(sensor));
+                    _log(err);
                     return;
                 }
 
