@@ -185,10 +185,18 @@ return;
 function readSensorPreviousStatus(sensor) {
     var previousStatus = OK;
     try {
-        previousStatus = fs.readFileSync("sensor_status/gpio_" + sensor.gpio + ".txt", 'utf8');
+        var _file = getSensorStatusFile();
+        previousStatus = fs.readFileSync(_file, 'utf8');
     } catch (e) {
         _log("Unable to read previous status " + JSON.stringify(sensor));
         _log(e);
+
+        // write default sensor status to file in case of file not existing
+        // error example:
+        // Error: ENOENT: no such file or directory, open 'sensor_status/gpio_37.txt'
+        if(e.indexOf("Error: ENOENT: no such file or directory") > -1) {
+            writeSensorStatus(sensor, OK);
+        }
     }
     return previousStatus;
 }
@@ -214,16 +222,20 @@ function getSensorStatus(sensor, value) {
     return _status;
 }
 
-function writeSensorStatus(sensor, status, done) {
-    var _file = "sensor_status/gpio_" + sensor.gpio + ".txt";
-    fs.writeFile(_file, status, function(err) {
-        if (err) {
-            _log("Error writing sensor status to file " + _file);
-            _log(err);
-        }
+function writeSensorStatus(sensor, status) {
 
-        done(sensor, status);
-    });
+    var _file = getSensorStatusFile(sensor);
+
+    try {
+        fs.writeFileSync(_file, status);
+    } catch(e) {
+        _log("Error writing sensor status to file " + _file);
+        _log(e);
+    };
+}
+
+function getSensorStatusFile(sensor) {
+    return "sensor_status/gpio_" + sensor.gpio + ".txt";
 }
 
 // if failed to load config, exit the program
