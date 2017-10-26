@@ -184,11 +184,11 @@ return;
 
 function readSensorPreviousStatus(sensor) {
     var previousStatus = OK;
+    var _file = getSensorStatusFile(sensor);
     try {
-        var _file = getSensorStatusFile();
         previousStatus = fs.readFileSync(_file, 'utf8');
     } catch (e) {
-        _log("Unable to read previous status " + JSON.stringify(sensor));
+        _log("Unable to read previous status of sensor " + JSON.stringify(sensor) + " from file " + _file);
         _log(e);
 
         // write default sensor status to file in case of file not existing
@@ -229,7 +229,7 @@ function writeSensorStatus(sensor, status) {
     try {
         fs.writeFileSync(_file, status);
     } catch(e) {
-        _log("Error writing sensor status to file " + _file);
+        _log("Error writing sensor status " + status + " to file " + _file);
         _log(e);
     };
 }
