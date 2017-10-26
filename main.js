@@ -190,13 +190,6 @@ function readSensorPreviousStatus(sensor) {
     } catch (e) {
         _log("Unable to read previous status of sensor " + JSON.stringify(sensor) + " from file " + _file);
         _log(e);
-
-        // write default sensor status to file in case of file not existing
-        // error example:
-        // Error: ENOENT: no such file or directory, open 'sensor_status/gpio_37.txt'
-        if(e.indexOf("Error: ENOENT: no such file or directory") > -1) {
-            writeSensorStatus(sensor, OK);
-        }
     }
     return previousStatus;
 }
@@ -222,6 +215,7 @@ function getSensorStatus(sensor, value) {
     return _status;
 }
 
+// sensor status should be written, instead of sensor value
 function writeSensorStatus(sensor, status) {
 
     var _file = getSensorStatusFile(sensor);
@@ -232,6 +226,16 @@ function writeSensorStatus(sensor, status) {
         _log("Error writing sensor status " + status + " to file " + _file);
         _log(e);
     };
+}
+
+function checkSensorStatusFile(sensor) {
+
+    var _file = getSensorStatusFile(sensor);
+
+    // if file of sensor status not existing, create it
+    if(fs.existsSync(_file) == false) {
+        writeSensorStatus(sensor, OK);
+    }
 }
 
 function getSensorStatusFile(sensor) {
@@ -245,5 +249,8 @@ if(loadConfig() == false) {
 
 // open gpio and read the value for each sensor
 for (var i = 0; i < SENSOR_LIST.length; i++) {
+    // check whether sensor status file existing
+    checkSensorStatusFile(SENSOR_LIST[i]);
+    // check sensor status by certain interval
     handleSensor(SENSOR_LIST[i]);
 }
