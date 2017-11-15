@@ -117,7 +117,7 @@ function checkSensorStatus(sensor, value) {
 
         uploadLogEntities(jsonLog, function() {
             // write sensor status to file after log upload successfully
-            writeSensorStatus(sensor, status);
+            writeSensorStatus(sensor, _status);
         }, function() {});
 
     } else if (_previousStatus == NG && _status == OK) {
@@ -131,7 +131,7 @@ function checkSensorStatus(sensor, value) {
 
         uploadLogEntities(jsonLog, function() {
             // write sensor status to file after log upload successfully
-            writeSensorStatus(sensor, status);
+            writeSensorStatus(sensor, _status);
         }, function() {});
     }
 }
