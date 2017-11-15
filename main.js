@@ -202,10 +202,12 @@ function getSensorStatus(sensor, value) {
     var _status = null;
 
     switch (value) {
-        case "Light-ON":
+        case 1:
+            // light
             _status = OK;
             break;
-        case "Dark-ON":
+        case 0:
+            // dark
             _status = NG;
             break;
         default:
