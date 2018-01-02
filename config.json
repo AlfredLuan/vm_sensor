@@ -6,12 +6,40 @@
 	"kiiThingPassword": "123ABC",
 
     "sensorList" : [
-        { "name": "Coffee", "gpio": "38", "code": 1011 },
-        { "name": "Milk", "gpio": "29", "code": 1012 },
-        { "name": "Chocolate", "gpio": "31", "code": 1013 },
-        { "name": "Thai Tea", "gpio": "33", "code": 1014 },
-        { "name": "Green Tea", "gpio": "35", "code": 1015 },
-        { "name": "Seasonal", "gpio": "37", "code": 1016 }
+        { "name": "Coffee", "gpio": "38", "code": 1011, "sensorReading": {"code": 31, "unit": "%"} },
+        { "name": "Milk", "gpio": "29", "code": 1012, "sensorReading": {"code": 32, "unit": "%"} },
+        { "name": "Chocolate", "gpio": "31", "code": 1013, "sensorReading": {"code": 33, "unit": "%"} },
+        { "name": "Thai Tea", "gpio": "33", "code": 1014, "sensorReading": {"code": 34, "unit": "%"} },
+        { "name": "Green Tea", "gpio": "35", "code": 1015, "sensorReading": {"code": 35, "unit": "%"} },
+        { "name": "Seasonal", "gpio": "37", "code": 1016, "sensorReading": {"code": 36, "unit": "%"} }
+
+
+        { "name": "3", "gpio": "3", "code": 3 },
+        { "name": "5", "gpio": "5", "code": 5 },
+        { "name": "7", "gpio": "7", "code": 7 },
+        { "name": "8", "gpio": "8", "code": 8 },
+        { "name": "10", "gpio": "10", "code": 10 },
+        { "name": "11", "gpio": "11", "code": 11 },
+        { "name": "12", "gpio": "12", "code": 12 },
+        { "name": "13", "gpio": "13", "code": 13 },
+        { "name": "15", "gpio": "15", "code": 15 },
+        { "name": "16", "gpio": "16", "code": 16 },
+        { "name": "18", "gpio": "18", "code": 18 },
+        { "name": "19", "gpio": "19", "code": 19 },
+        { "name": "21", "gpio": "21", "code": 21 },
+        { "name": "22", "gpio": "22", "code": 22 },
+        { "name": "23", "gpio": "23", "code": 23 },
+        { "name": "24", "gpio": "24", "code": 24 },
+        { "name": "26", "gpio": "26", "code": 26 },
+        { "name": "29", "gpio": "29", "code": 29 },
+        { "name": "31", "gpio": "31", "code": 31 },
+        { "name": "32", "gpio": "32", "code": 32 },
+        { "name": "33", "gpio": "33", "code": 33 },
+        { "name": "35", "gpio": "35", "code": 35 },
+        { "name": "36", "gpio": "36", "code": 36 },
+        { "name": "37", "gpio": "37", "code": 37 },
+        { "name": "38", "gpio": "38", "code": 38 },
+        { "name": "40", "gpio": "40", "code": 40 },
     ],
 
     "sensorPollingInterval" : 3000
