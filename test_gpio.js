@@ -7,7 +7,7 @@ function _log(message) {
     console.log((new Date()) + " | " + message + "\r\n");
 }
 
-function handleSensor(pinNum) {
+function handleSensor(pinNum, callback) {
 
     _log("handle pinNum " + pinNum);
 
@@ -19,11 +19,11 @@ function handleSensor(pinNum) {
             _log(err);
         }
 
-        openGpio(pinNum);
+        callback(pinNum);
     });
 }
 
-function openGpio(pinNum) {
+var openGpioAndRead = function(pinNum) {
 
     // open gpio for the pinNum
     gpio.open(pinNum, "input", function(err) {
@@ -49,5 +49,31 @@ function openGpio(pinNum) {
     });
 }
 
-handleSensor(37);
-handleSensor(33);
+var openGpioAndWrite = function(pinNum) {
+
+    // open gpio for the pinNum
+    gpio.open(pinNum, "output", function(err) {
+
+        if(err) {
+            _log("error during open gpio " + pinNum);
+            _log(err);
+            return;
+        }
+
+        // polling the sensor value from gpio by certain interval
+        setInterval(function() {
+            gpio.write(pinNum, 1, function(err) {
+                if(err) {
+                    _log("error during write gpio " + pinNum);
+                    _log(err);
+                    return;
+                }
+
+                _log("write value 1 to gpio " + pinNum);
+            });
+        }, SENSOR_POLLING_INTERVAL);
+    });
+}
+
+handleSensor(37, openGpioAndRead);
+handleSensor(33, openGpioAndWrite);
