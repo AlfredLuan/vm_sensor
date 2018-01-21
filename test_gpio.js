@@ -3,6 +3,13 @@ var gpio = require("pi-gpio");
 
 var SENSOR_POLLING_INTERVAL = 3000;
 
+var writeValue = 1;
+
+function getWriteValue() {
+    writeValue = (writeValue == 1? 0 : 1);
+    return writeValue;
+}
+
 function _log(message) {
     console.log((new Date()) + " | " + message + "\r\n");
 }
@@ -62,7 +69,7 @@ var openGpioAndWrite = function(pinNum) {
 
         // polling the sensor value from gpio by certain interval
         setInterval(function() {
-            gpio.write(pinNum, 1, function(err) {
+            gpio.write(pinNum, getWriteValue(), function(err) {
                 if(err) {
                     _log("error during write gpio " + pinNum);
                     _log(err);
