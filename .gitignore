@@ -1,2 +1,3 @@
 .DS_Store
 sensor_status/*
+node_modules/*

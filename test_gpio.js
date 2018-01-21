@@ -12,7 +12,7 @@ function handleSensor(pinNum) {
     _log("handle pinNum " + pinNum);
 
     // close gpio in advance, just in case that it's not properly released in previous use
-    gpio.close(sensor.gpio, function(err) {
+    gpio.close(pinNum, function(err) {
         // in case of any err, still try to open gpio
         if(err) {
             _log("error during close gpio " + pinNum);
@@ -50,3 +50,4 @@ function openGpio(pinNum) {
 }
 
 handleSensor(37);
+handleSensor(33);
