@@ -69,14 +69,15 @@ var openGpioAndWrite = function(pinNum) {
 
         // polling the sensor value from gpio by certain interval
         setInterval(function() {
-            gpio.write(pinNum, getWriteValue(), function(err) {
+            var value = getWriteValue();
+            gpio.write(pinNum, value, function(err) {
                 if(err) {
                     _log("error during write gpio " + pinNum);
                     _log(err);
                     return;
                 }
 
-                _log("write value 1 to gpio " + pinNum);
+                _log("write value " + value + " to gpio " + pinNum);
             });
         }, SENSOR_POLLING_INTERVAL);
     });
